@@ -1,18 +1,16 @@
 import { View, Text } from 'react-native'
+import { SafeAreaView } from 'react-native-web'
 
 const Home = () => {
   return (
-    <View>
-        <Text>Home</Text>
-        <Text>Home</Text>
-        <Text>Home</Text>
-        <Text>Home</Text>
-        <Text>Home</Text>
-        <Text>Home</Text>
-        <Text>Home</Text>
-        <Text>Home</Text>
-  
-    </View>
+    <SafeAreaView style={
+      {
+        flex: 1,
+        backgroundColor: 'white'
+      }
+    }>
+      
+    </SafeAreaView>
   )
 }
 
