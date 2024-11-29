@@ -1,7 +1,12 @@
-import { Stack } from 'expo-router'
+import { StatusBar, View } from 'react-native'
 
 const Layout  = () => {
-    return <Stack />
+    return <View>
+        <Text>
+            Testing Layout
+        </Text>
+        <StatusBar style='auto' />
+    </View>
 }
 
 export default Layout
