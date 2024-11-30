@@ -1,21 +1,26 @@
 import { Link } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import { View, Text } from 'react-native'
-import { SafeAreaView } from 'react-native-web'
+import { StyleSheet, Text, View } from 'react-native'
 
 const Home = () => {
   return (
-    <SafeAreaView style={
-      {
-        flex: 1,
-        backgroundColor: 'white'
-      }
+    <View style={
+      styles.container
     }>
       <Text>MAIN</Text>
       <StatusBar />
-      <Link href='/profile' style={{color: blue}}>GO TO PROFILE</Link>
-    </SafeAreaView>
+      <Link href='/profile' style={{color: 'blue'}}>GO TO PROFILE</Link>
+    </View>
   )
 }
 
 export default Home
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+})
