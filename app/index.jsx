@@ -1,8 +1,24 @@
 import { Link } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View } from 'react-native'
+import { useEffect, useState } from 'react'
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 
 const Home = () => {
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+  }, [])
+  if( loading) {
+    return (
+      <View style={
+        styles.container
+      }>
+      <ActivityIndicator size={'large'} color={'orange'} />
+      </View>
+    )
+  }
   return (
     <View style={
       styles.container
