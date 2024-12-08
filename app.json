@@ -1,10 +1,8 @@
 {
   "expo": {
-    "scheme": "acme",
-    "plugins": [
-      "expo-router"
-    ],
-    "name": "jobmore",
+    "scheme": "jobmore",
+    "plugins": ["expo-router"],
+    "name": "Jobmore",
     "slug": "jobmore"
   }
 }
