@@ -23,7 +23,7 @@ const Home = () => {
     <View style={
       styles.container
     }>
-      <Text>MAIN</Text>
+      <Text className="text-red-400">MAIN</Text>
       <StatusBar />
       <Link href='/profile' style={{color: 'blue'}}>GO TO PROFILE</Link>
     </View>
