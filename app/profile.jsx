@@ -13,7 +13,7 @@ const Insight = (props) => {
 const profile = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>profile</Text>
+      <Text className="text-blue-400 capitalize" style={styles.heading}>profile</Text>
       <Image source={require('../assets/images/profile.png')} style={{width: 100, height: 100, borderRadius: 50}} />
       <Text>
         Jidan
