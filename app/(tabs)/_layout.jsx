@@ -1,9 +1,12 @@
+import { Tabs } from "expo-router";
 import { View, Text } from "react-native";
 const TabsLayout = () => {
   return (
-    <View>
-      <Text>TabsLayout</Text>
-    </View>
+    <>
+      <Tabs >
+        <Tabs.Screen name="home" />
+        </Tabs>
+    </>
   );
 };
 export default TabsLayout;
