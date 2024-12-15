@@ -4,6 +4,7 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  TextInput,
   View,
 } from "react-native";
 
@@ -38,6 +39,8 @@ const App = () => {
             resizeMode="contain"
           />
         </View>
+          <TextInput />
+          
       </ScrollView>
     </SafeAreaView>
   );
