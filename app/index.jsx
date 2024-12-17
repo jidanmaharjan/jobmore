@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Button,
   Image,
   SafeAreaView,
   ScrollView,
@@ -39,8 +40,10 @@ const App = () => {
             resizeMode="contain"
           />
         </View>
+        <View className="items-center justify-center w-full px-4">
           <TextInput />
-          
+          <Button title="Submit" />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
