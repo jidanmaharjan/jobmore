@@ -5,11 +5,13 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  Text,
   TextInput,
   View,
 } from "react-native";
 
 import { images } from "../constants";
+import { StatusBar } from "expo-status-bar";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -39,11 +41,33 @@ const App = () => {
             style={{ width: 130, height: 84 }}
             resizeMode="contain"
           />
+          <Image
+            source={images.cards}
+            style={{ maxWidth: 380, height: 300 }}
+            className="max-w-[380px] h-[300px] w-full"
+            resizeMode="contain"
+          />
         </View>
+        <View className="relative mt-5">
+          <Text className="text-white text-center text-3xl font-bold">
+            Discover your perfect job with{" "}
+            <Text className="text-secondary-200">Jobmore</Text>
+          </Text>
+          <Image
+            source={images.path}
+            className="absolute -bottom-2 right-16"
+            style={{ width: 136, height: 15 }}
+            resizeMode="contain"
+          />
+        </View>
+          <Text className="text-xs text-center mt-7 font-pregular text-gray-100">
+            Where jobs meet your skills. Find your dream job today!
+          </Text>
         <View className="items-center justify-center w-full px-4">
           <TextInput />
           <Button title="Submit" />
         </View>
+        <StatusBar backgroundColor="#161622" style="light" />
       </ScrollView>
     </SafeAreaView>
   );
