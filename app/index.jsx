@@ -12,6 +12,7 @@ import {
 
 import { images } from "../constants";
 import { StatusBar } from "expo-status-bar";
+import { Link } from "expo-router";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ const App = () => {
   }, []);
   if (loading) {
     return (
-      <View className="flex-1 items-center justify-center">
+      <View className="flex-1 items-center justify-center bg-primary">
         <ActivityIndicator size={"large"} color={"orange"} />
       </View>
     );
@@ -60,12 +61,14 @@ const App = () => {
             resizeMode="contain"
           />
         </View>
-          <Text className="text-xs text-center mt-7 font-pregular text-gray-100">
-            Where jobs meet your skills. Find your dream job today!
-          </Text>
+        <Text className="text-xs text-center mt-7 font-pregular text-gray-100">
+          Where jobs meet your skills. Find your dream job today!
+        </Text>
         <View className="items-center justify-center w-full px-4">
           <TextInput />
-          <Button title="Submit" />
+          <Link href="/sign-in">
+            <Button className="w-full rounded-md" title="Login" />
+          </Link>
         </View>
         <StatusBar backgroundColor="#161622" style="light" />
       </ScrollView>
