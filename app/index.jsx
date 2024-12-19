@@ -13,6 +13,7 @@ import {
 import { images } from "../constants";
 import { StatusBar } from "expo-status-bar";
 import { Link } from "expo-router";
+import CustomButton from "../components/CustomButton";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -66,9 +67,15 @@ const App = () => {
         </Text>
         <View className="items-center justify-center w-full px-4">
           <TextInput />
-          <Link href="/sign-in">
-            <Button className="w-full rounded-md" title="Login" />
-          </Link>
+          {/* <Link href="/sign-in"> */}
+            <CustomButton
+              title="Login"
+              handlePress={() => {}}
+              isLoading={false}
+              containerStyles={"w-full mt-7"}
+              textStyles={"text-white"}
+            />
+          {/* </Link> */}
         </View>
         <StatusBar backgroundColor="#161622" style="light" />
       </ScrollView>
