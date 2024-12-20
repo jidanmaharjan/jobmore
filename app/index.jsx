@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Button,
   Image,
   SafeAreaView,
   ScrollView,
@@ -10,10 +9,10 @@ import {
   View,
 } from "react-native";
 
-import { images } from "../constants";
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Link } from "expo-router";
 import CustomButton from "../components/CustomButton";
+import { images } from "../constants";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -36,7 +35,7 @@ const App = () => {
           height: "100%",
         }}
       >
-        <View className="items-center justify-center w-full px-4">
+        <View className="items-center justify-center w-full px-4 min-h-[85vh]">
           <Image
             source={images.logo}
             className="w-[130px] h-[84px]"
@@ -49,35 +48,33 @@ const App = () => {
             className="max-w-[380px] h-[300px] w-full"
             resizeMode="contain"
           />
-        </View>
-        <View className="relative mt-5">
-          <Text className="text-white text-center text-3xl font-bold">
-            Discover your perfect job with{" "}
-            <Text className="text-secondary-200">Jobmore</Text>
+          <View className="relative mt-5">
+            <Text className="text-white text-center text-3xl font-bold">
+              Discover your perfect job with{" "}
+              <Text className="text-secondary-200">Jobmore</Text>
+            </Text>
+            <Image
+              source={images.path}
+              className="absolute -bottom-2 right-16 "
+              style={{ width: 136, height: 15 }}
+              resizeMode="contain"
+            />
+          </View>
+          <Text className="text-xs text-center mt-7 font-pregular text-gray-100">
+            Where jobs meet your skills. Find your dream job today!
           </Text>
-          <Image
-            source={images.path}
-            className="absolute -bottom-2 right-16"
-            style={{ width: 136, height: 15 }}
-            resizeMode="contain"
-          />
-        </View>
-        <Text className="text-xs text-center mt-7 font-pregular text-gray-100">
-          Where jobs meet your skills. Find your dream job today!
-        </Text>
-        <View className="items-center justify-center w-full px-4">
-          <TextInput />
-          {/* <Link href="/sign-in"> */}
+          <View className="items-center justify-center w-full px-4">
+            <TextInput />
             <CustomButton
-              title="Login"
-              handlePress={() => {}}
+              title="Continue to Sign In"
+              handlePress={() => router.push("/sign-in")}
               isLoading={false}
               containerStyles={"w-full mt-7"}
               textStyles={"text-white"}
             />
-          {/* </Link> */}
+          </View>
+          <StatusBar backgroundColor="#161622" style="light" />
         </View>
-        <StatusBar backgroundColor="#161622" style="light" />
       </ScrollView>
     </SafeAreaView>
   );
