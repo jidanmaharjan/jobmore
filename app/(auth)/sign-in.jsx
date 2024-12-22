@@ -1,4 +1,5 @@
 import { View, Text, TextInput } from "react-native";
+import CustomButton from "../../components/CustomButton";
 const SignIn = () => {
   return (
     <View>
