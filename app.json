@@ -1,8 +1,13 @@
 {
   "expo": {
     "scheme": "jobmore",
-    "plugins": ["expo-router"],
+    "plugins": ["expo-router", "expo-font"],
     "name": "Jobmore",
-    "slug": "jobmore"
+    "slug": "jobmore",
+    "newArchEnabled": true,
+    "jsEngine": "hermes",
+    "ios": {
+      "jsEngine": "jsc"
+    }
   }
 }
