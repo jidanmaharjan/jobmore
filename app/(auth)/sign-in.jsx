@@ -1,7 +1,7 @@
 import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
 import CustomButton from "../../components/CustomButton";
 
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { useState } from "react";
 import CustomFormField from "../../components/CustomFormField";
 import { images } from "../../constants";
@@ -40,6 +40,7 @@ const SignIn = () => {
             onBlur={() => setFocused(false)}
           />
           <CustomFormField
+          secure
             title="Password"
             value={form?.password}
             placeholder="Enter your password"
@@ -57,6 +58,17 @@ const SignIn = () => {
             containerStyles={"w-full mt-7"}
             textStyles={"text-white"}
           />
+          <View className="flex flex-row justify-center items-center pt-5">
+            <Text className="text-gray-100 text-center font-pregular text-sm">
+              Don't have an account ?{" "}
+            </Text>
+            <Link
+              href="/sign-up"
+              className="text-secondary font-psemibold cursor-pointer"
+            >
+              Sign Up
+            </Link>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

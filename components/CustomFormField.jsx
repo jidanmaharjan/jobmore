@@ -15,6 +15,7 @@ const CustomFormField = ({
   placeholder,
   handleTextchange,
   otherStyles,
+  secure,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,10 +29,10 @@ const CustomFormField = ({
           placeholder={placeholder}
           onChangeText={handleTextchange}
           placeholderTextColor={"#7b7b8b"}
-          secureTextEntry={title === "Password" && !showPassword}
+          secureTextEntry={secure && !showPassword}
           {...props}
         />
-        {title === "Password" && (
+        {secure && (
           <TouchableOpacity onPress={() => setShowPassword((prev) => !prev)}>
             <Image
               source={showPassword ? icons?.eyeHide : icons?.eye}
