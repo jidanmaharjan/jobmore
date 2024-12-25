@@ -1,7 +1,7 @@
-import { View, Text, Button, Image } from "react-native";
+import { View, Text, Button, Image, ScrollView } from "react-native";
 const Home = () => {
   return (
-    <View className="p-4">
+    <ScrollView className="p-4 bg-primary h-full gap-4">
       {/* <View className="flex flex-row justify-end items-center p-2">
         <Image
           className="max-w-8 max-h-8 object-contain"
@@ -12,26 +12,70 @@ const Home = () => {
           source={require("../../assets/icons/menu.png")}
         />
       </View> */}
-      <View className="bg-white p-4 rounded-md flex flex-column gap-4">
-        <View className="flex flex-row items-center">
+      <View className="bg-black-100 border-black-200 border-2 p-4 rounded-md flex flex-column gap-4">
+        <View className="flex flex-row items-center gap-4">
           <Image
             className="max-w-8 max-h-8 object-contain"
             source={require("../../assets/images/cards.png")}
           />
-          <Text>Daily Fruit Tracker</Text>
+          <Text className="text-gray-100 font-psemibold">
+            Daily Fruit Tracker
+          </Text>
         </View>
         <View>
           <Image
-            className="max-w-full"
+            className="max-w-full rounded-lg aspect-square"
             source={require("../../assets/images/thumbnail.png")}
           />
         </View>
-        <View className="flex flex-row justify-between">
-          <Text>Today</Text>
-          <Text>1kg</Text>
+        <View className="flex flex-row justify-between ">
+          <Text className="text-gray-100 font-psemibold">Today</Text>
+          <Text className="text-gray-100 font-psemibold">1kg</Text>
         </View>
       </View>
-    </View>
+      <View className="bg-black-100 border-black-200 border-2 p-4 rounded-md flex flex-column gap-4">
+        <View className="flex flex-row items-center gap-4">
+          <Image
+            className="max-w-8 max-h-8 object-contain"
+            source={require("../../assets/images/cards.png")}
+          />
+          <Text className="text-gray-100 font-psemibold">
+            Daily Fruit Tracker
+          </Text>
+        </View>
+        <View>
+          <Image
+            className="max-w-full rounded-lg aspect-square"
+            source={require("../../assets/images/thumbnail.png")}
+          />
+        </View>
+        <View className="flex flex-row justify-between ">
+          <Text className="text-gray-100 font-psemibold">Today</Text>
+          <Text className="text-gray-100 font-psemibold">1kg</Text>
+        </View>
+      </View>
+      <View className="bg-black-100 border-black-200 border-2 p-4 rounded-md flex flex-column gap-4">
+        <View className="flex flex-row items-center gap-4">
+          <Image
+            className="max-w-8 max-h-8 object-contain"
+            source={require("../../assets/images/cards.png")}
+          />
+          <Text className="text-gray-100 font-psemibold">
+            Daily Fruit Tracker
+          </Text>
+        </View>
+        <View>
+          <Image
+            className="max-w-full rounded-lg aspect-square"
+            source={require("../../assets/images/thumbnail.png")}
+          />
+        </View>
+        <View className="flex flex-row justify-between ">
+          <Text className="text-gray-100 font-psemibold">Today</Text>
+          <Text className="text-gray-100 font-psemibold">1kg</Text>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 export default Home;
