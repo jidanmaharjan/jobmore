@@ -9,7 +9,7 @@ const Home = () => {
               className="max-w-8 max-h-8 object-contain"
               source={require("../../assets/images/cards.png")}
             />
-            <Text className="text-gray-100 font-psemibold">
+            <Text className="text-gray-100  text-lg font-psemibold">
               Daily Fruit Tracker
             </Text>
           </View>
@@ -30,7 +30,7 @@ const Home = () => {
               className="max-w-8 max-h-8 object-contain"
               source={require("../../assets/images/cards.png")}
             />
-            <Text className="text-gray-100 font-psemibold">
+            <Text className="text-gray-100  text-lg font-psemibold">
               Daily Fruit Tracker
             </Text>
           </View>
@@ -51,7 +51,7 @@ const Home = () => {
               className="max-w-8 max-h-8 object-contain"
               source={require("../../assets/images/cards.png")}
             />
-            <Text className="text-gray-100 font-psemibold">
+            <Text className="text-gray-100  text-lg font-psemibold">
               Daily Fruit Tracker
             </Text>
           </View>
