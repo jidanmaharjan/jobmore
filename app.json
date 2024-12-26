@@ -1,13 +1,15 @@
 {
   "expo": {
-    "scheme": "jobmore",
+    "scheme": "caltra",
     "plugins": ["expo-router", "expo-font"],
-    "name": "Jobmore",
-    "slug": "jobmore",
+    "name": "Caltra",
+    "slug": "caltra",
     "newArchEnabled": true,
     "jsEngine": "hermes",
     "ios": {
-      "jsEngine": "jsc"
+      "jsEngine": "jsc",
+      "package": "com.jyamaru.caltra",
+      "bundleIdentifier": "com.jyamaru.caltra"
     }
   }
 }

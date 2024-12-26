@@ -1,18 +1,36 @@
-import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { Alert, Image, SafeAreaView, ScrollView, Text, View } from "react-native";
 import CustomButton from "../../components/CustomButton";
 
 import { Link, router } from "expo-router";
 import { useState } from "react";
 import CustomFormField from "../../components/CustomFormField";
 import { images } from "../../constants";
+import { createUser } from "../../lib/appwrite";
 
 const SignUp = () => {
   const [form, setForm] = useState({
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [focused, setFocused] = useState(false);
+
+  const submit = async () => {
+    if(!form.email || !form.password || !form.confirmPassword || !form.username) {
+      Alert.alert("Error", "Please fill all fields")
+    }
+    setIsSubmitting(true)
+    try {
+      const result = await createUser(form.email, form.password, form.username)
+      router.replace("/home")
+    } catch (error) {
+      Alert.alert("Error", error.message)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -30,6 +48,15 @@ const SignUp = () => {
           <Text className="text-white font-psemibold text-2xl mt-10">
             Sign Up for your account
           </Text>
+          <CustomFormField
+            title="Username"
+            value={form?.username}
+            placeholder="Enter your username"
+            handleTextchange={(e) => setForm((prev) => ({ ...prev, username: e }))}
+            otherStyles="mt-7"
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+          />
           <CustomFormField
             title="Email"
             value={form?.email}
@@ -66,8 +93,8 @@ const SignUp = () => {
           />
           <CustomButton
             title="Sign Up"
-            handlePress={() => router.push("/home")}
-            isLoading={false}
+            handlePress={submit}
+            isLoading={isSubmitting}
             containerStyles={"w-full mt-7"}
             textStyles={"text-white"}
           />

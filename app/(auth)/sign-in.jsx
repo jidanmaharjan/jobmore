@@ -5,6 +5,7 @@ import { Link, router } from "expo-router";
 import { useState } from "react";
 import CustomFormField from "../../components/CustomFormField";
 import { images } from "../../constants";
+import { signIn } from "../../lib/appwrite";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -12,6 +13,22 @@ const SignIn = () => {
     password: "",
   });
   const [focused, setFocused] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const submit = async () => {
+      if(!form.email || !form.password) {
+        Alert.alert("Error", "Please fill all fields")
+      }
+      setIsSubmitting(true)
+      try {
+        const result = await signIn(form.email, form.password)
+        router.replace("/home")
+      } catch (error) {
+        Alert.alert("Error", error.message)
+      } finally {
+        setIsSubmitting(false)
+      }
+    }
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -53,8 +70,8 @@ const SignIn = () => {
           />
           <CustomButton
             title="Sign In"
-            handlePress={() => router.push("/home")}
-            isLoading={false}
+            handlePress={submit}
+            isLoading={isSubmitting}
             containerStyles={"w-full mt-7"}
             textStyles={"text-white"}
           />
