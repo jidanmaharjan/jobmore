@@ -19,6 +19,9 @@ const App = () => {
 
   const { loading, isLoggedIn } = useGlobalContext();
 
+
+  console.log(loading, isLoggedIn);
+  
   if(!loading && isLoggedIn) return <Redirect href="/home" />
 
 
