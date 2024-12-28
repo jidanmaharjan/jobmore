@@ -1,6 +1,7 @@
-import { View, Text, Button, Image, ScrollView } from "react-native";
+import { View, Text, Button, Image, ScrollView, SafeAreaView } from "react-native";
 const Home = () => {
   return (
+    <SafeAreaView className="bg-primary h-full">
     <ScrollView className="p-4 bg-primary h-full ">
       <View className="gap-4">
         <View className="bg-black-100 border-black-200 border-2 p-4 rounded-md flex flex-column gap-4">
@@ -15,7 +16,7 @@ const Home = () => {
           </View>
           <View>
             <Image
-              className="max-w-full rounded-lg aspect-square"
+              className="max-w-full rounded-lg"
               source={require("../../assets/images/thumbnail.png")}
             />
           </View>
@@ -36,7 +37,7 @@ const Home = () => {
           </View>
           <View>
             <Image
-              className="max-w-full rounded-lg aspect-square"
+              className="max-w-full rounded-lg"
               source={require("../../assets/images/thumbnail.png")}
             />
           </View>
@@ -57,7 +58,7 @@ const Home = () => {
           </View>
           <View>
             <Image
-              className="max-w-full rounded-lg aspect-square"
+              className="max-w-full rounded-lg"
               source={require("../../assets/images/thumbnail.png")}
             />
           </View>
@@ -68,6 +69,7 @@ const Home = () => {
         </View>
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 };
 export default Home;

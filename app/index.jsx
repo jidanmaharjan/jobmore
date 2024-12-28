@@ -19,9 +19,6 @@ const App = () => {
 
   const { loading, isLoggedIn } = useGlobalContext();
 
-
-  console.log(loading, isLoggedIn);
-  
   if(!loading && isLoggedIn) return <Redirect href="/home" />
 
 
@@ -30,13 +27,13 @@ const App = () => {
   //     setLoading(false);
   //   }, 1000);
   // }, []);
-  // if (loading) {
-  //   return (
-  //     <View className="flex-1 items-center justify-center bg-primary">
-  //       <ActivityIndicator size={"large"} color={"orange"} />
-  //     </View>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <View className="flex-1 items-center justify-center bg-primary">
+        <ActivityIndicator size={"large"} color={"orange"} />
+      </View>
+    );
+  }
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView

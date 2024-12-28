@@ -1,34 +1,45 @@
-import { Alert, Image, SafeAreaView, ScrollView, Text, View } from "react-native";
+import {
+  Alert,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import CustomButton from "../../components/CustomButton";
 
-import { Link, router } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 import { useState } from "react";
 import CustomFormField from "../../components/CustomFormField";
 import { images } from "../../constants";
 import { signIn } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
+  const { loading, isLoggedIn } = useGlobalContext();
+  if (!loading && isLoggedIn) return <Redirect href="/home" />;
+
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
   const [focused, setFocused] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submit = async () => {
-      if(!form.email || !form.password) {
-        Alert.alert("Error", "Please fill all fields")
-      }
-      setIsSubmitting(true)
-      try {
-        const result = await signIn(form.email, form.password)
-        router.replace("/home")
-      } catch (error) {
-        Alert.alert("Error", error.message)
-      } finally {
-        setIsSubmitting(false)
-      }
+    if (!form.email || !form.password) {
+      return Alert.alert("Error", "Please fill all fields");
     }
+    setIsSubmitting(true);
+    try {
+      const result = await signIn(form.email, form.password);
+      router.replace("/home");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -57,7 +68,7 @@ const SignIn = () => {
             onBlur={() => setFocused(false)}
           />
           <CustomFormField
-          secure
+            secure
             title="Password"
             value={form?.password}
             placeholder="Enter your password"
