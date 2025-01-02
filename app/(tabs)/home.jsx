@@ -6,9 +6,19 @@ import {
   ScrollView,
   SafeAreaView,
   FlatList,
+  RefreshControl,
 } from "react-native";
 import { images } from "../../constants";
+import { useState } from "react";
 const Home = () => {
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = () => {
+    setRefreshing(true)
+    setTimeout(() => {
+      setRefreshing(false)
+    }, 2000)
+  }
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
@@ -39,6 +49,7 @@ const Home = () => {
             </View>
           </View>
         )}
+        refreshControl={<RefreshControl tintColor={"#FFA001"} refreshing={refreshing} onRefresh={onRefresh} />}
       />
       {/* <ScrollView className="p-4 bg-primary h-full ">
       <View className="gap-4">
