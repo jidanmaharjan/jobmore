@@ -23,7 +23,7 @@ const Insight = (props) => {
   );
 };
 
-const profile = () => {
+const Profile = () => {
   const { setIsLoggedIn, setUser } = useGlobalContext();
   const signOutHandler = () => {
     signOut();
@@ -62,7 +62,7 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {
