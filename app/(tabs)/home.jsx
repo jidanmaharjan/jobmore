@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  Button,
-  Image,
-  ScrollView,
-  SafeAreaView,
-  FlatList,
-} from "react-native";
+import { FlatList, Image, SafeAreaView, Text, View } from "react-native";
 import { images } from "../../constants";
 const Home = () => {
   return (
@@ -32,7 +24,7 @@ const Home = () => {
                 <Image
                   source={images.logoSmall}
                   className="w-9 h-10"
-                  style={{width: '2.5rem', height: '2.5rem'}}
+                  style={{ width: "2.5rem", height: "2.5rem" }}
                   resizeMode="contain"
                 />
               </View>
@@ -63,48 +55,7 @@ const Home = () => {
             <Text className="text-gray-100 font-psemibold">1kg</Text>
           </View>
         </View>
-        <View className="bg-black-100 border-black-200 border-2 p-4 rounded-md flex flex-column gap-4">
-          <View className="flex flex-row items-center gap-4">
-            <Image
-              className="max-w-8 max-h-8 object-contain"
-              source={require("../../assets/images/cards.png")}
-            />
-            <Text className="text-gray-100  text-lg font-psemibold">
-              Daily Fruit Tracker
-            </Text>
-          </View>
-          <View>
-            <Image
-              className="max-w-full rounded-lg"
-              source={require("../../assets/images/thumbnail.png")}
-            />
-          </View>
-          <View className="flex flex-row justify-between ">
-            <Text className="text-gray-100 font-psemibold">Today</Text>
-            <Text className="text-gray-100 font-psemibold">1kg</Text>
-          </View>
-        </View>
-        <View className="bg-black-100 border-black-200 border-2 p-4 rounded-md flex flex-column gap-4">
-          <View className="flex flex-row items-center gap-4">
-            <Image
-              className="max-w-8 max-h-8 object-contain"
-              source={require("../../assets/images/cards.png")}
-            />
-            <Text className="text-gray-100  text-lg font-psemibold">
-              Daily Fruit Tracker
-            </Text>
-          </View>
-          <View>
-            <Image
-              className="max-w-full rounded-lg"
-              source={require("../../assets/images/thumbnail.png")}
-            />
-          </View>
-          <View className="flex flex-row justify-between ">
-            <Text className="text-gray-100 font-psemibold">Today</Text>
-            <Text className="text-gray-100 font-psemibold">1kg</Text>
-          </View>
-        </View>
+        
       </View>
     </ScrollView> */}
     </SafeAreaView>
