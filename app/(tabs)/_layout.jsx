@@ -1,17 +1,33 @@
 import { Tabs } from "expo-router";
-import { Image, Text, View } from "react-native";
-import { icons } from "../../constants";
+import {
+  CirclePlus,
+  CircleUserRound,
+  FolderClock,
+  House,
+  ListOrdered,
+} from "lucide-react-native";
+import { Text, View } from "react-native";
 
-const TabIcon = ({ icon, color, name, focused }) => {
+const TabIcon = ({ icon, color, name, focused, primary = false }) => {
   return (
     <View className="items-center justify-center gap-2 mt-6">
-      <Image
+      {/* <Image
         source={icon}
         resizeMode="contain"
         tintColor={color}
         className="w-6 h-6"
         style={{ width: 24, height: 24 }}
-      />
+      /> */}
+      <View
+        style={{
+          color: color,
+          borderRadius: primary && "50%",
+          padding: primary && ".5rem",
+          backgroundColor: primary && "#161622",
+        }}
+      >
+        {icon}
+      </View>
       <Text
         className={`text-xs ${
           focused ? "font-psemibold " : "font-pregular"
@@ -44,10 +60,10 @@ const TabsLayout = () => {
           name="home"
           options={{
             headerShown: false,
-            title: "Home",
+            title: "home",
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.home}
+                icon={<House color={color} />}
                 color={color}
                 name="Home"
                 focused={focused}
@@ -56,16 +72,32 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="bookmark"
+          name="leaderboard"
           options={{
             headerShown: false,
-            title: "bookmark",
+            title: "leaderboard",
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.bookmark}
+                icon={<ListOrdered color={color} />}
                 color={color}
-                name="Bookmark"
+                name="Board"
                 focused={focused}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="new"
+          options={{
+            headerShown: false,
+            title: "new",
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={<CirclePlus color={color} size={32} />}
+                color={color}
+                name=""
+                focused={focused}
+                primary
               />
             ),
           }}
@@ -74,10 +106,10 @@ const TabsLayout = () => {
           name="history"
           options={{
             headerShown: false,
-            title: "History",
+            title: "history",
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.upload}
+                icon={<FolderClock color={color} />}
                 color={color}
                 name="History"
                 focused={focused}
@@ -92,7 +124,7 @@ const TabsLayout = () => {
             title: "Profile",
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.profile}
+                icon={<CircleUserRound color={color} />}
                 color={color}
                 name="Profile"
                 focused={focused}

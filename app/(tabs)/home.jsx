@@ -1,11 +1,20 @@
 import { FlatList, Image, SafeAreaView, Text, View } from "react-native";
 import { images } from "../../constants";
+import { useState } from "react";
 const Home = () => {
+  const [refreshing, setRefreshing] = useState(false)
+
+  const onRefresh = () => {
+    setRefreshing(true)
+    setTimeout(() => {
+      setRefreshing(false)
+    }, 2000)
+  }
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
-        keyExtractor={(item) => item.$id}
+        keyExtractor={(item) => item.id}
         renderItem={(item) => (
           <Text className="text-3xl font-psemibold text-white">{item.id}</Text>
         )}
@@ -31,6 +40,7 @@ const Home = () => {
             </View>
           </View>
         )}
+        refreshControl={<RefreshControl tintColor={"#FFA001"} refreshing={refreshing} onRefresh={onRefresh} />}
       />
       {/* <ScrollView className="p-4 bg-primary h-full ">
       <View className="gap-4">
