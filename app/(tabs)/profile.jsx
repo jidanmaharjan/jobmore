@@ -24,7 +24,7 @@ const Insight = (props) => {
 };
 
 const Profile = () => {
-  const { setIsLoggedIn, setUser } = useGlobalContext();
+  const { setIsLoggedIn, setUser, user } = useGlobalContext();
   const signOutHandler = () => {
     signOut();
     setIsLoggedIn(false);
@@ -42,7 +42,7 @@ const Profile = () => {
             source={require("../../assets/images/profile.png")}
             style={{ width: 100, height: 100, borderRadius: 50 }}
           />
-          <Text>Jidan</Text>
+          <Text className="text-white space-y-4 text-lg my-4">{user?.username}</Text>
           <View style={styles.insightContainer}>
             <Insight title="Carbs" amount="100" total="200g" />
             <Insight title="Protein" amount="202" total="143" />

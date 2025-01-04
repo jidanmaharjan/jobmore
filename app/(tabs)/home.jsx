@@ -1,4 +1,4 @@
-import { FlatList, Image, SafeAreaView, Text, View } from "react-native";
+import { FlatList, Image, RefreshControl, SafeAreaView, Text, View } from "react-native";
 import { images } from "../../constants";
 import { useState } from "react";
 const Home = () => {
