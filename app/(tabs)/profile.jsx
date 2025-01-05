@@ -34,7 +34,7 @@ const Profile = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView className="p-4 bg-primary h-full">
-        <View className="justify-center items-center">
+        {/* <View className="justify-center items-center">
           <Text className="text-blue-400 capitalize" style={styles.heading}>
             profile
           </Text>
@@ -48,7 +48,7 @@ const Profile = () => {
             <Insight title="Protein" amount="202" total="143" />
             <Insight title="Fat" amount="169" total="359g" />
           </View>
-        </View>
+        </View> */}
       </ScrollView>
       <View className="p-4">
         <CustomButton
