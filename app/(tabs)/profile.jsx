@@ -34,21 +34,28 @@ const Profile = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView className="p-4 bg-primary h-full">
-        {/* <View className="justify-center items-center">
-          <Text className="text-blue-400 capitalize" style={styles.heading}>
+        <View className="justify-center items-center mt-4">
+          {/* <Text className="text-blue-400 capitalize" style={styles.heading}>
             profile
-          </Text>
+          </Text> */}
           <Image
             source={require("../../assets/images/profile.png")}
             style={{ width: 100, height: 100, borderRadius: 50 }}
           />
-          <Text className="text-white space-y-4 text-lg my-4">{user?.username}</Text>
+          <Text className="text-white space-y-4 text-lg font-psemibold mt-4">{user?.username}</Text>
+          <Text className="text-gray-100 space-y-4 text-sm mb-8">{user?.email}</Text>
+          <CustomButton
+            title="Edit Profile"
+            handlePress={() => router.push("/edit-profile")}
+            containerStyles={"px-8 !bg-primary border border-white"}
+            textStyles={"text-white"}
+          />
           <View style={styles.insightContainer}>
             <Insight title="Carbs" amount="100" total="200g" />
             <Insight title="Protein" amount="202" total="143" />
             <Insight title="Fat" amount="169" total="359g" />
           </View>
-        </View> */}
+        </View>
       </ScrollView>
       <View className="p-4">
         <CustomButton
