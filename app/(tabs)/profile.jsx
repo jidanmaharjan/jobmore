@@ -11,14 +11,22 @@ import CustomButton from "../../components/CustomButton";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { router } from "expo-router";
 import { signOut } from "../../lib/appwrite";
+import { ProgressBar } from "react-native-ui-lib";
 
 const Insight = (props) => {
+  const progress = (props.amount / parseInt(props.total)) * 100;
+
   return (
-    <View style={styles.insight}>
-      <Text style={styles.title}>{props.title}</Text>
-      <Text>
+    <View className="bg-black-100 border-2 border-black-200 text-gray-100 p-4 rounded-md gap-2">
+      <Text className="font-psemibold text-gray-100">{props.title}</Text>
+      <Text className="font-psemibold text-white ">
         {props.amount} / {props.total}
       </Text>
+      <ProgressBar
+        progress={progress > 100 ? 100 : progress}
+        height={10}
+        progressColor={progress > 100 ? "#ef4444" : "#FF9C01"}
+      />
     </View>
   );
 };
@@ -42,17 +50,21 @@ const Profile = () => {
             source={require("../../assets/images/profile.png")}
             style={{ width: 100, height: 100, borderRadius: 50 }}
           />
-          <Text className="text-white space-y-4 text-lg font-psemibold mt-4">{user?.username}</Text>
-          <Text className="text-gray-100 space-y-4 text-sm mb-8">{user?.email}</Text>
+          <Text className="text-white space-y-4 text-lg font-psemibold mt-4">
+            {user?.username}
+          </Text>
+          <Text className="text-gray-100 space-y-4 text-sm mb-8">
+            {user?.email}
+          </Text>
           <CustomButton
             title="Edit Profile"
             handlePress={() => router.push("/edit-profile")}
             containerStyles={"px-8 !bg-primary border border-white"}
             textStyles={"text-white"}
           />
-          <View style={styles.insightContainer}>
+          <View className="mt-8 flex-row items-center gap-4">
             <Insight title="Carbs" amount="100" total="200g" />
-            <Insight title="Protein" amount="202" total="143" />
+            <Insight title="Protein" amount="202" total="143g" />
             <Insight title="Fat" amount="169" total="359g" />
           </View>
         </View>
