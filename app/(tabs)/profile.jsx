@@ -47,7 +47,8 @@ const Profile = () => {
             profile
           </Text> */}
           <Image
-            source={require("../../assets/images/profile.png")}
+            // source={require("../../assets/images/profile.png")}
+            source={user?.avatar}
             style={{ width: 100, height: 100, borderRadius: 50 }}
           />
           <Text className="text-white space-y-4 text-lg font-psemibold mt-4">
