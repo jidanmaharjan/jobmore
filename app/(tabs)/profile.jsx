@@ -11,7 +11,7 @@ import CustomButton from "../../components/CustomButton";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { router } from "expo-router";
 import { signOut } from "../../lib/appwrite";
-import { ProgressBar } from "react-native-ui-lib";
+import { GridList, ProgressBar, Spacings } from "react-native-ui-lib";
 
 const Insight = (props) => {
   const progress = (props.amount / parseInt(props.total)) * 100;
@@ -30,6 +30,21 @@ const Insight = (props) => {
     </View>
   );
 };
+
+const items = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+  },
+];
 
 const Profile = () => {
   const { setIsLoggedIn, setUser, user } = useGlobalContext();
@@ -71,6 +86,13 @@ const Profile = () => {
         </View>
       </ScrollView>
       <View className="p-4">
+        <GridList
+          data={items}
+          maxItemWidth={140}
+          numColumns={2}
+          itemSpacing={Spacings.s3}
+          listPadding={Spacings.s5}
+        />
         <CustomButton
           title="Sign Out"
           handlePress={signOutHandler}
