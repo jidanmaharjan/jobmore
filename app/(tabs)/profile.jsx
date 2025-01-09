@@ -58,9 +58,6 @@ const Profile = () => {
     <SafeAreaView className="bg-primary h-full">
       <ScrollView className="p-4 bg-primary h-full">
         <View className="justify-center items-center mt-4">
-          {/* <Text className="text-blue-400 capitalize" style={styles.heading}>
-            profile
-          </Text> */}
           <Image
             // source={require("../../assets/images/profile.png")}
             source={user?.avatar}
