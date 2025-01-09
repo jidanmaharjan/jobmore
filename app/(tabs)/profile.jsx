@@ -1,4 +1,5 @@
 import {
+  FlatList,
   Image,
   SafeAreaView,
   ScrollView,
@@ -33,16 +34,16 @@ const Insight = (props) => {
 
 const items = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    title: "First Item",
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    title: "Second Item",
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    title: "Third Item",
   },
 ];
 
@@ -82,13 +83,19 @@ const Profile = () => {
           </View>
         </View>
       </ScrollView>
-      <View className="p-4">
+      <View className="p-4 text-white">
         <GridList
           data={items}
           maxItemWidth={140}
-          numColumns={2}
+          numColumns={1}
           itemSpacing={Spacings.s3}
           listPadding={Spacings.s5}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Text className="text-lg font-psemibold text-white">
+              {item.title}
+            </Text>
+          )}
         />
         <CustomButton
           title="Sign Out"
