@@ -12,7 +12,8 @@ import CustomButton from "../../components/CustomButton";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { router } from "expo-router";
 import { signOut } from "../../lib/appwrite";
-import { GridList, ProgressBar, Spacings } from "react-native-ui-lib";
+import { GridList, ProgressBar, Spacings, Switch } from "react-native-ui-lib";
+import { Bell, LayoutGrid, LogOut } from "lucide-react-native";
 
 const Insight = (props) => {
   const progress = (props.amount / parseInt(props.total)) * 100;
@@ -35,15 +36,19 @@ const Insight = (props) => {
 const items = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
+    title: "Push Notifications",
+    icon: <Bell />,
+    rightSection: <Switch value={true} />,
   },
   {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
+    title: "App Icon",
+    icon: <LayoutGrid />,
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
+    title: "Logout",
+    icon: <LogOut />,
   },
 ];
 
@@ -84,7 +89,8 @@ const Profile = () => {
         </View>
       </ScrollView>
       <View className="p-4 text-white">
-        <GridList
+        <FlatList
+          className="w-full border rounded-md border-black-200"
           data={items}
           maxItemWidth={140}
           numColumns={1}
@@ -92,9 +98,15 @@ const Profile = () => {
           listPadding={Spacings.s5}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Text className="text-lg font-psemibold text-white">
-              {item.title}
-            </Text>
+            <View className="flex flex-row justify-between p-4">
+              <View className="flex flex-row items-center gap-4">
+                {item.icon}
+                <Text className="text-lg font-psemibold text-white">
+                  {item.title}
+                </Text>
+              </View>
+              {item.rightSection && item.rightSection}
+            </View>
           )}
         />
         <CustomButton
