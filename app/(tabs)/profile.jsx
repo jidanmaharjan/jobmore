@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
@@ -33,24 +34,7 @@ const Insight = (props) => {
   );
 };
 
-const items = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "Push Notifications",
-    icon: <Bell />,
-    rightSection: <Switch value={true} />,
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "App Icon",
-    icon: <LayoutGrid />,
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Logout",
-    icon: <LogOut />,
-  },
-];
+
 
 const Profile = () => {
   const { setIsLoggedIn, setUser, user } = useGlobalContext();
@@ -60,6 +44,26 @@ const Profile = () => {
     setUser(null);
     router.replace("/sign-in");
   };
+  const items = [
+    {
+      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      title: "Push Notifications",
+      icon: <Bell />,
+      rightSection: <Switch value={false} onColor={'#FF9C01'} />,
+    },
+    {
+      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+      title: "App Icon",
+      icon: <LayoutGrid />,
+    },
+    {
+      id: "58694a0f-3da1-471f-bd96-145571e29d72",
+      title: "Logout",
+      icon: <LogOut />,
+      danger: true,
+      action: signOutHandler
+    },
+  ];
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView className="p-4 bg-primary h-full">
@@ -97,24 +101,24 @@ const Profile = () => {
           itemSpacing={Spacings.s3}
           listPadding={Spacings.s5}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <View className="flex flex-row justify-between p-4">
-              <View className="flex flex-row items-center gap-4">
+          renderItem={({ item, }) => (
+            <TouchableOpacity onPress={item?.action} className="flex flex-row justify-between p-4">
+              <View className={`flex flex-row items-center gap-4 ${item?.danger && "text-red-400"}`}>
                 {item.icon}
-                <Text className="text-lg font-psemibold text-white">
+                <Text className={`text-lg font-psemibold text-white ${item?.danger && "text-red-400"}`}>
                   {item.title}
                 </Text>
               </View>
-              {item.rightSection && item.rightSection}
-            </View>
+              {item?.rightSection}
+            </TouchableOpacity>
           )}
         />
-        <CustomButton
+        {/* <CustomButton
           title="Sign Out"
           handlePress={signOutHandler}
           containerStyles={"w-full mt-7"}
           textStyles={"text-white"}
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );
