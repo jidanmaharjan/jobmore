@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import CustomButton from "../../components/CustomButton";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { router } from "expo-router";
@@ -95,7 +95,7 @@ const Profile = () => {
       </ScrollView>
       <View className="p-4 text-white">
         <FlatList
-          className="w-full border rounded-md border-black-200"
+          className="w-full border-2 rounded-md border-black-200"
           data={items}
           maxItemWidth={140}
           numColumns={1}
@@ -106,7 +106,7 @@ const Profile = () => {
             <TouchableOpacity onPress={item?.action} className="flex flex-row justify-between p-4">
               <View className={`flex flex-row items-center gap-4 ${item?.danger && "text-red-400"}`}>
                 {item.icon}
-                <Text className={`text-lg font-psemibold text-white ${item?.danger && "text-red-400"}`}>
+                <Text style={{color: item?.danger && '#f87171'}} className={`text-lg font-psemibold text-white ${item?.danger && "text-red-400"}`}>
                   {item.title}
                 </Text>
               </View>
