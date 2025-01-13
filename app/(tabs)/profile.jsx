@@ -38,6 +38,7 @@ const Insight = (props) => {
 
 const Profile = () => {
   const { setIsLoggedIn, setUser, user } = useGlobalContext();
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true)
   const signOutHandler = () => {
     signOut();
     setIsLoggedIn(false);
@@ -49,7 +50,7 @@ const Profile = () => {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
       title: "Push Notifications",
       icon: <Bell />,
-      rightSection: <Switch value={false} onColor={'#FF9C01'} />,
+      rightSection: <Switch value={notificationsEnabled} onValueChange={setNotificationsEnabled} onColor={'#FF9C01'} />,
     },
     {
       id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
