@@ -9,13 +9,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Camera, CameraView } from "expo-camera";
+import { Circle, Images, Scan, SwitchCamera } from "lucide-react-native";
 
 const NewTrack = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [calories, setCalories] = useState(null);
   const cameraRef = useRef(null);
-  const [facing, setFacing] = useState(Camera.Constants.Type.back);
+  const [facing, setFacing] = useState("back");
 
   useEffect(() => {
     // Request camera permission
@@ -49,11 +50,20 @@ const NewTrack = () => {
       Alert.alert("Error", "There was an issue with processing the image.");
     }
   };
+
   const capturePhoto = async () => {
     if (cameraRef.current) {
       const photoData = await cameraRef.current.takePictureAsync();
       setPhoto(photoData.uri);
       processImage(photoData.uri);
+    }
+  };
+
+  const toggleCameraFacing = () => {
+    if (facing === "back") {
+      setFacing("front");
+    } else {
+      setFacing("back");
     }
   };
 
@@ -80,21 +90,42 @@ const NewTrack = () => {
 
   return (
     <View style={styles.container}>
-      {/* {!photo ? ( */}
-      <CameraView style={styles.camera} facing={facing}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
-      </CameraView>
-      {/* ) : (
+      {!photo ? (
+        <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
+          <View className="items-center justify-center absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]">
+            <Scan className="w-80 h-80" />
+          </View>
+          <View className="flex justify-between items-center flex-row w-full p-8">
+            <TouchableOpacity
+              className="bg-black/40 rounded-full p-2 text-white/90"
+              style={styles.button}
+              // onPress={toggleCameraFacing}
+            >
+              <Images className="w-8 h-8" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="bg-gray-100 rounded-full p-1"
+              style={styles.button}
+              onPress={capturePhoto}
+            >
+              <Circle className="w-16 h-16" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="bg-black/40 rounded-full p-2 text-white/90"
+              style={styles.button}
+              onPress={toggleCameraFacing}
+            >
+              <SwitchCamera className="w-8 h-8" />
+            </TouchableOpacity>
+          </View>
+        </CameraView>
+      ) : (
         <View style={styles.photoContainer}>
           <Image source={{ uri: photo }} style={styles.imagePreview} />
           <Text>Calories: {calories ? calories : "Fetching calories..."}</Text>
           <Button title="Capture Again" onPress={() => setPhoto(null)} />
         </View>
-      )} */}
+      )}
     </View>
   );
 };
