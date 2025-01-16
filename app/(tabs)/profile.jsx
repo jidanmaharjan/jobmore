@@ -34,11 +34,9 @@ const Insight = (props) => {
   );
 };
 
-
-
 const Profile = () => {
   const { setIsLoggedIn, setUser, user } = useGlobalContext();
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true)
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const signOutHandler = () => {
     signOut();
     setIsLoggedIn(false);
@@ -49,20 +47,26 @@ const Profile = () => {
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
       title: "Push Notifications",
-      icon: <Bell />,
-      rightSection: <Switch value={notificationsEnabled} onValueChange={setNotificationsEnabled} onColor={'#FF9C01'} />,
+      icon: <Bell style={{ color: "#fff" }} />,
+      rightSection: (
+        <Switch
+          value={notificationsEnabled}
+          onValueChange={setNotificationsEnabled}
+          onColor={"#FF9C01"}
+        />
+      ),
     },
     {
       id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
       title: "App Icon",
-      icon: <LayoutGrid />,
+      icon: <LayoutGrid style={{ color: "#fff" }} />,
     },
     {
       id: "58694a0f-3da1-471f-bd96-145571e29d72",
       title: "Logout",
-      icon: <LogOut />,
+      icon: <LogOut style={{ color: "#f87171" }} />,
       danger: true,
-      action: signOutHandler
+      action: signOutHandler,
     },
   ];
   return (
@@ -73,6 +77,7 @@ const Profile = () => {
             // source={require("../../assets/images/profile.png")}
             source={user?.avatar}
             style={{ width: 100, height: 100, borderRadius: 50 }}
+            alt="Profile Picture"
           />
           <Text className="text-white space-y-4 text-lg font-psemibold mt-4">
             {user?.username}
@@ -102,11 +107,20 @@ const Profile = () => {
           itemSpacing={Spacings.s3}
           listPadding={Spacings.s5}
           keyExtractor={(item) => item.id}
-          renderItem={({ item, }) => (
-            <TouchableOpacity onPress={item?.action} className="flex flex-row justify-between p-4">
-              <View className={`flex flex-row items-center gap-4 ${item?.danger && "text-red-400"}`}>
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={item?.action}
+              className="flex flex-row justify-between p-4"
+            >
+              <View
+                style={{ color: item?.danger ? "#f87171" : "#fff" }}
+                className={`flex flex-row items-center gap-4 text-white`}
+              >
                 {item.icon}
-                <Text style={{color: item?.danger && '#f87171'}} className={`text-lg font-psemibold text-white ${item?.danger && "text-red-400"}`}>
+                <Text
+                  style={{ color: item?.danger ? "#f87171" : "#fff" }}
+                  className={`text-lg font-psemibold text-white `}
+                >
                   {item.title}
                 </Text>
               </View>

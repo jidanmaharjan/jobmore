@@ -92,8 +92,15 @@ const NewTrack = () => {
     <View style={styles.container}>
       {!photo ? (
         <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
-          <View className="items-center justify-center absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]">
-            <Scan className="w-80 h-80" />
+          <View className="text-gray-100 absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]">
+            <Scan
+              style={{
+                color: "rgba(255,255,255,0.5)",
+                width: "8rem",
+                height: "8rem",
+              }}
+              size={360}
+            />
           </View>
           <View className="flex justify-between items-center flex-row w-full p-8">
             <TouchableOpacity
@@ -101,21 +108,21 @@ const NewTrack = () => {
               style={styles.button}
               // onPress={toggleCameraFacing}
             >
-              <Images className="w-8 h-8" />
+              <Images style={{ color: "white" }} size={24} />
             </TouchableOpacity>
             <TouchableOpacity
               className="bg-gray-100 rounded-full p-1"
               style={styles.button}
               onPress={capturePhoto}
             >
-              <Circle className="w-16 h-16" />
+              <Circle style={{ color: "rgba(0,0,0,0.6)" }} size={64} />
             </TouchableOpacity>
             <TouchableOpacity
               className="bg-black/40 rounded-full p-2 text-white/90"
               style={styles.button}
               onPress={toggleCameraFacing}
             >
-              <SwitchCamera className="w-8 h-8" />
+              <SwitchCamera style={{ color: "white" }} size={24} />
             </TouchableOpacity>
           </View>
         </CameraView>
