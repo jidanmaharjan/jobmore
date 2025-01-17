@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Camera, CameraView } from "expo-camera";
-import { Circle, Images, Scan, SwitchCamera } from "lucide-react-native";
+import { Circle, Images, RotateCw, Scan, SwitchCamera } from "lucide-react-native";
+import CustomButton from "../../components/CustomButton";
 
 const NewTrack = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -127,9 +128,27 @@ const NewTrack = () => {
           </View>
         </CameraView>
       ) : (
-        <View style={styles.photoContainer}>
-          <Image source={{ uri: photo }} style={styles.imagePreview} />
+        <View className="items-center justify-center w-full px-4">
+          <Image className="aspect-[9/16] w-80" source={{ uri: photo }} />
           <Text>Calories: {calories ? calories : "Fetching calories..."}</Text>
+          <View className="w-full justify-center flex gap-4">
+
+          <CustomButton
+              title="Save"
+              handlePress={() => router.push("/sign-in")}
+              isLoading={false}
+              containerStyles={"w-full mt-7"}
+              textStyles={"text-white"}
+              />
+          <CustomButton
+              title={<RotateCw />}
+              
+              handlePress={() => router.push("/sign-in")}
+              isLoading={false}
+              containerStyles={"bg-transparent border-secondary"}
+              textStyles={"text-white"}
+              />
+              </View>
           <Button title="Capture Again" onPress={() => setPhoto(null)} />
         </View>
       )}
