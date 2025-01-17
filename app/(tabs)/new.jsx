@@ -7,9 +7,17 @@ import {
   StyleSheet,
   Alert,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { Camera, CameraView } from "expo-camera";
-import { Circle, Images, RotateCw, Scan, SwitchCamera } from "lucide-react-native";
+import {
+  Circle,
+  Images,
+  RotateCw,
+  Save,
+  Scan,
+  SwitchCamera,
+} from "lucide-react-native";
 import CustomButton from "../../components/CustomButton";
 
 const NewTrack = () => {
@@ -18,6 +26,7 @@ const NewTrack = () => {
   const [calories, setCalories] = useState(null);
   const cameraRef = useRef(null);
   const [facing, setFacing] = useState("back");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Request camera permission
@@ -28,6 +37,7 @@ const NewTrack = () => {
   }, []);
 
   const processImage = async (imageUri) => {
+    setLoading(true);
     try {
       // Send the image to your AI service (AI endpoint here)
       const response = await fetch("https://your-ai-service-endpoint", {
@@ -42,13 +52,15 @@ const NewTrack = () => {
 
       if (data && data.calories) {
         setCalories(data.calories);
-        saveToAppwrite(data.calories, imageUri);
+        // saveToAppwrite(data.calories, imageUri);
       } else {
         Alert.alert("Error", "Could not fetch calorie data");
       }
     } catch (error) {
       console.error("Error processing image:", error);
       Alert.alert("Error", "There was an issue with processing the image.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -128,28 +140,35 @@ const NewTrack = () => {
           </View>
         </CameraView>
       ) : (
-        <View className="items-center justify-center w-full px-4">
-          <Image className="aspect-[9/16] w-80" source={{ uri: photo }} />
-          <Text>Calories: {calories ? calories : "Fetching calories..."}</Text>
-          <View className="w-full justify-center flex gap-4">
-
-          <CustomButton
-              title="Save"
+        <View className="items-center justify-center w-full px-4 gap-8">
+          <Image className="aspect-[9/16] w-60" source={{ uri: photo }} />
+          {loading ? (
+            <ActivityIndicator size={"large"} color={"orange"} />
+          ) : (
+            <Text>Calories: </Text>
+          )}
+          <View className="w-full justify-center items-center flex flex-row gap-4">
+            <CustomButton
+              title={
+                <>
+                  <Save /> Save
+                </>
+              }
               handlePress={() => router.push("/sign-in")}
               isLoading={false}
-              containerStyles={"w-full mt-7"}
-              textStyles={"text-white"}
-              />
-          <CustomButton
+              containerStyles={"flex-grow"}
+              textStyles={"text-white flex items-center"}
+            />
+            <CustomButton
               title={<RotateCw />}
-              
-              handlePress={() => router.push("/sign-in")}
+              handlePress={() => setPhoto(null)}
               isLoading={false}
-              containerStyles={"bg-transparent border-secondary"}
-              textStyles={"text-white"}
-              />
-              </View>
-          <Button title="Capture Again" onPress={() => setPhoto(null)} />
+              containerStyles={
+                "bg-transparent border border-secondary aspect-square h-[52px]"
+              }
+              textStyles={"text-secondary"}
+            />
+          </View>
         </View>
       )}
     </View>
