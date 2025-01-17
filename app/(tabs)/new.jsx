@@ -8,6 +8,7 @@ import {
   Alert,
   TouchableOpacity,
   ActivityIndicator,
+  FlatList,
 } from "react-native";
 import { Camera, CameraView } from "expo-camera";
 import {
@@ -19,7 +20,13 @@ import {
   SwitchCamera,
 } from "lucide-react-native";
 import CustomButton from "../../components/CustomButton";
+import { Spacings } from "react-native-ui-lib";
 
+const items = [
+  { id: 1, title: "Item 1", calories: 100 },
+  { id: 2, title: "Item 2", calories: 200 },
+  { id: 3, title: "Item 3", calories: 300 },
+]
 const NewTrack = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
@@ -140,12 +147,22 @@ const NewTrack = () => {
           </View>
         </CameraView>
       ) : (
-        <View className="items-center justify-center w-full px-4 gap-8">
+        <View className="items-center justify-center w-full px-4 gap-8 bg-primary h-full">
           <Image className="aspect-[9/16] w-60" source={{ uri: photo }} />
           {loading ? (
             <ActivityIndicator size={"large"} color={"orange"} />
           ) : (
-            <Text>Calories: </Text>
+            <View className="max-h-40 w-full">
+              <Text className="p-4 text-white border border-black-200">
+                Banana
+              </Text>
+              <Text className="p-4 text-white border border-black-200">
+                220 KCAL
+              </Text>
+              <Text className="p-4 text-white border border-black-200">
+                Weight
+              </Text>
+            </View>
           )}
           <View className="w-full justify-center items-center flex flex-row gap-4">
             <CustomButton
