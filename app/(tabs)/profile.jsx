@@ -1,20 +1,19 @@
+import { router } from "expo-router";
+import { Bell, LayoutGrid, LogOut } from "lucide-react-native";
+import React, { useState } from "react";
 import {
   FlatList,
   Image,
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
-import React, { useState } from "react";
+import { ProgressBar, Spacings, Switch } from "react-native-ui-lib";
 import CustomButton from "../../components/CustomButton";
 import { useGlobalContext } from "../../context/GlobalProvider";
-import { router } from "expo-router";
 import { signOut } from "../../lib/appwrite";
-import { GridList, ProgressBar, Spacings, Switch } from "react-native-ui-lib";
-import { Bell, LayoutGrid, LogOut } from "lucide-react-native";
 
 const Insight = (props) => {
   const progress = (props.amount / parseInt(props.total)) * 100;
@@ -141,33 +140,3 @@ const Profile = () => {
 
 export default Profile;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // gradient orange to white top to bottom
-    backgroundColor: "linear-gradient(to bottom, #FF8C00, #FFFFFF)",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 20,
-  },
-  heading: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  insightContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 10,
-  },
-  insight: {
-    backgroundColor: "#f2f2f2",
-    padding: 15,
-    borderRadius: 10,
-    gap: 5,
-  },
-});

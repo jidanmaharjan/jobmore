@@ -1,15 +1,3 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  View,
-  Text,
-  Button,
-  Image,
-  StyleSheet,
-  Alert,
-  TouchableOpacity,
-  ActivityIndicator,
-  FlatList,
-} from "react-native";
 import { Camera, CameraView } from "expo-camera";
 import {
   Circle,
@@ -19,8 +7,17 @@ import {
   Scan,
   SwitchCamera,
 } from "lucide-react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 import CustomButton from "../../components/CustomButton";
-import { Spacings } from "react-native-ui-lib";
 
 const items = [
   { id: 1, title: "Item 1", calories: 100 },
