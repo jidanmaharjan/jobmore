@@ -1,11 +1,7 @@
 {
   "expo": {
     "scheme": "caltra",
-    "plugins": [
-      "expo-router",
-      "expo-font",
-      "expo-camera"
-    ],
+    "plugins": ["expo-router", "expo-font", "expo-camera"],
     "name": "Caltra",
     "slug": "caltra",
     "newArchEnabled": true,
