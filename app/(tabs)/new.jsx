@@ -1,22 +1,36 @@
-import React, { useState, useEffect, useRef } from "react";
+import { Camera, CameraView } from "expo-camera";
 import {
-  View,
-  Text,
-  Button,
+  Circle,
+  Images,
+  RotateCw,
+  Save,
+  Scan,
+  SwitchCamera,
+} from "lucide-react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  ActivityIndicator,
+  Alert,
   Image,
   StyleSheet,
-  Alert,
+  Text,
   TouchableOpacity,
+  View
 } from "react-native";
-import { Camera, CameraView } from "expo-camera";
-import { Circle, Images, Scan, SwitchCamera } from "lucide-react-native";
+import CustomButton from "../../components/CustomButton";
 
+const items = [
+  { id: 1, title: "Item 1", calories: 100 },
+  { id: 2, title: "Item 2", calories: 200 },
+  { id: 3, title: "Item 3", calories: 300 },
+]
 const NewTrack = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [calories, setCalories] = useState(null);
   const cameraRef = useRef(null);
   const [facing, setFacing] = useState("back");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Request camera permission
@@ -27,6 +41,7 @@ const NewTrack = () => {
   }, []);
 
   const processImage = async (imageUri) => {
+    setLoading(true);
     try {
       // Send the image to your AI service (AI endpoint here)
       const response = await fetch("https://your-ai-service-endpoint", {
@@ -41,13 +56,15 @@ const NewTrack = () => {
 
       if (data && data.calories) {
         setCalories(data.calories);
-        saveToAppwrite(data.calories, imageUri);
+        // saveToAppwrite(data.calories, imageUri);
       } else {
         Alert.alert("Error", "Could not fetch calorie data");
       }
     } catch (error) {
       console.error("Error processing image:", error);
       Alert.alert("Error", "There was an issue with processing the image.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -127,10 +144,45 @@ const NewTrack = () => {
           </View>
         </CameraView>
       ) : (
-        <View style={styles.photoContainer}>
-          <Image source={{ uri: photo }} style={styles.imagePreview} />
-          <Text>Calories: {calories ? calories : "Fetching calories..."}</Text>
-          <Button title="Capture Again" onPress={() => setPhoto(null)} />
+        <View className="items-center justify-center w-full px-4 gap-8 bg-primary h-full">
+          <Image className="aspect-[9/16] w-60" source={{ uri: photo }} />
+          {loading ? (
+            <ActivityIndicator size={"large"} color={"orange"} />
+          ) : (
+            <View className="max-h-40 w-full">
+              <Text className="p-4 text-white border border-black-200">
+                Banana
+              </Text>
+              <Text className="p-4 text-white border border-black-200">
+                220 KCAL
+              </Text>
+              <Text className="p-4 text-white border border-black-200">
+                Weight
+              </Text>
+            </View>
+          )}
+          <View className="w-full justify-center items-center flex flex-row gap-4">
+            <CustomButton
+              title={
+                <>
+                  <Save /> Save
+                </>
+              }
+              handlePress={() => router.push("/sign-in")}
+              isLoading={false}
+              containerStyles={"flex-grow"}
+              textStyles={"text-white flex items-center"}
+            />
+            <CustomButton
+              title={<RotateCw />}
+              handlePress={() => setPhoto(null)}
+              isLoading={false}
+              containerStyles={
+                "bg-transparent border border-secondary aspect-square h-[52px]"
+              }
+              textStyles={"text-secondary"}
+            />
+          </View>
         </View>
       )}
     </View>
