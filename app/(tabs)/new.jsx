@@ -15,19 +15,20 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import CustomButton from "../../components/CustomButton";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const items = [
   { id: 1, title: "Item 1", calories: 100 },
   { id: 2, title: "Item 2", calories: 200 },
   { id: 3, title: "Item 3", calories: 300 },
-]
+];
 const NewTrack = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
-  const [calories, setCalories] = useState(null);
+  const [calorieData, setCalorieData] = useState(null);
   const cameraRef = useRef(null);
   const [facing, setFacing] = useState("back");
   const [loading, setLoading] = useState(false);
@@ -43,22 +44,66 @@ const NewTrack = () => {
   const processImage = async (imageUri) => {
     setLoading(true);
     try {
-      // Send the image to your AI service (AI endpoint here)
-      const response = await fetch("https://your-ai-service-endpoint", {
-        method: "POST",
-        body: JSON.stringify({ imageUri }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const genAI = new GoogleGenerativeAI(
+        process.env.EXPO_PUBLIC_GEMINI_API_KEY
+      );
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const prompt = `
+        Please generate data from this image for a calorie tracker app. 
+        Image: ${imageUri}
+  
+        **Strictly follow the JSON format with the following keys:**
+        * 'calories' (integer)
+        * 'weight' (float, in grams)
+        * 'name' (string) 
+  
+        **No other keys allowed.** 
+  
+        **Example:** 
+        { 
+          "calories": 150, 
+          "weight": 100, 
+          "name": "Apple" 
+        }
+  
+        **Return only the JSON data. with a single objext for the photo provided. nothing else.**`;
 
-      const data = await response.json();
+      console.log("Prompt:", prompt);
 
-      if (data && data.calories) {
-        setCalories(data.calories);
-        // saveToAppwrite(data.calories, imageUri);
-      } else {
-        Alert.alert("Error", "Could not fetch calorie data");
+      const result = await model.generateContent(prompt);
+      const responseData = result.response.text();
+
+      console.log("Response Data:", responseData);
+
+      try {
+        const extractedContent = responseData.match(/{(.*)}/)[1];
+        console.log("Extracted Content:", extractedContent);
+
+        const parsedData = JSON.parse(`{${extractedContent}}`);
+
+        // Validate the response data
+        if (
+          !parsedData.hasOwnProperty("calories") ||
+          !parsedData.hasOwnProperty("weight") ||
+          !parsedData.hasOwnProperty("name")
+        ) {
+          throw new Error("Invalid JSON response: Missing required keys.");
+        }
+
+        if (
+          typeof parsedData.calories !== "number" ||
+          typeof parsedData.weight !== "number" ||
+          typeof parsedData.name !== "string"
+        ) {
+          throw new Error("Invalid JSON response: Incorrect data types.");
+        }
+
+        console.log("Parsed Data:", parsedData);
+        setCalorieData(parsedData);
+        // Use the parsedData for your app logic (e.g., update state)
+      } catch (jsonError) {
+        console.error("Error parsing JSON:", jsonError);
+        Alert.alert("Error", "Could not parse the image data.");
       }
     } catch (error) {
       console.error("Error processing image:", error);
@@ -151,13 +196,13 @@ const NewTrack = () => {
           ) : (
             <View className="max-h-40 w-full">
               <Text className="p-4 text-white border border-black-200">
-                Banana
+                {calorieData?.name}
               </Text>
               <Text className="p-4 text-white border border-black-200">
-                220 KCAL
+                {calorieData?.calories} Calories
               </Text>
               <Text className="p-4 text-white border border-black-200">
-                Weight
+                {calorieData?.weight} grams
               </Text>
             </View>
           )}
