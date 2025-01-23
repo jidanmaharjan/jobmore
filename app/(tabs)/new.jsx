@@ -20,11 +20,6 @@ import {
 import CustomButton from "../../components/CustomButton";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const items = [
-  { id: 1, title: "Item 1", calories: 100 },
-  { id: 2, title: "Item 2", calories: 200 },
-  { id: 3, title: "Item 3", calories: 300 },
-];
 const NewTrack = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);

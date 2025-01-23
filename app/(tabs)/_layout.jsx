@@ -11,13 +11,6 @@ import { Text, View } from "react-native";
 const TabIcon = ({ icon, color, name, focused, primary = false }) => {
   return (
     <View className="items-center justify-center gap-2 mt-6">
-      {/* <Image
-        source={icon}
-        resizeMode="contain"
-        tintColor={color}
-        className="w-6 h-6"
-        style={{ width: 24, height: 24 }}
-      /> */}
       <View
         style={{
           color: color,
