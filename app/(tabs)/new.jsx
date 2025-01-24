@@ -19,6 +19,7 @@ import {
 } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import * as FileSystem from "expo-file-system";
 
 const NewTrack = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -36,6 +37,19 @@ const NewTrack = () => {
     })();
   }, []);
 
+  async function convertImageUriToBase64(imageUri) {
+    try {
+      // Read the image file as a base64 string
+      const base64Image = await FileSystem.readAsStringAsync(imageUri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+      return base64Image;
+    } catch (error) {
+      console.error('Error reading file:', error);
+      return null;
+    }
+  }
+
   const processImage = async (imageUri) => {
     setLoading(true);
     try {
@@ -45,7 +59,6 @@ const NewTrack = () => {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       const prompt = `
         Please generate data from this image for a calorie tracker app. 
-        Image: ${imageUri}
   
         **Strictly follow the JSON format with the following keys:**
         * 'calories' (integer)
@@ -63,9 +76,16 @@ const NewTrack = () => {
   
         **Return only the JSON data. with a single objext for the photo provided. nothing else.**`;
 
-      console.log("Prompt:", prompt);
+      const imagePart = {
+        inlineData: {
+          data:
+          await convertImageUriToBase64(imageUri) ||
+            imageUri?.split("data:image/jpeg;base64,")[1],
+          mimeType: "image/jpeg",
+        },
+      };
 
-      const result = await model.generateContent(prompt);
+      const result = await model.generateContent([prompt, imagePart]);
       const responseData = result.response.text();
 
       console.log("Response Data:", responseData);
@@ -110,8 +130,14 @@ const NewTrack = () => {
 
   const capturePhoto = async () => {
     if (cameraRef.current) {
-      const photoData = await cameraRef.current.takePictureAsync();
+      const photoData = await cameraRef.current.takePictureAsync({
+        quality: 1,
+        base64: false,
+        imageType: "jpg",
+      });
       setPhoto(photoData.uri);
+      console.log("Photo Data:", photoData);
+
       processImage(photoData.uri);
     }
   };
