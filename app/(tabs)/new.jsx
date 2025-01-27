@@ -20,6 +20,7 @@ import {
 import CustomButton from "../../components/CustomButton";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as FileSystem from "expo-file-system";
+import { savePicture } from "../../lib/appwrite";
 
 const NewTrack = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -45,7 +46,7 @@ const NewTrack = () => {
       });
       return base64Image;
     } catch (error) {
-      console.error('Error reading file:', error);
+      console.error("Error reading file:", error);
       return null;
     }
   }
@@ -79,7 +80,7 @@ const NewTrack = () => {
       const imagePart = {
         inlineData: {
           data:
-          await convertImageUriToBase64(imageUri) ||
+            (await convertImageUriToBase64(imageUri)) ||
             imageUri?.split("data:image/jpeg;base64,")[1],
           mimeType: "image/jpeg",
         },
@@ -150,15 +151,16 @@ const NewTrack = () => {
     }
   };
 
-  const saveToAppwrite = async (calories, imageUri) => {
+  const saveToAppwrite = async () => {
     try {
-      const document = await database.createDocument("your-collection-id", {
-        calorieData: calories,
-        imageUri: imageUri,
-      });
-      Alert.alert("Success", "Data saved to Appwrite");
+      // Save the photo and calorie data to Appwrite
+      const result = await savePicture(calorieData, photo);
+      if (!result) {
+        return Alert.alert("Error", "Save failed. Please try again.");
+      }
+      Alert.alert("Success", "Data saved successfully.");
     } catch (error) {
-      console.error("Error saving data to Appwrite:", error);
+      console.error("Error saving data:", error);
       Alert.alert("Error", "There was an issue saving the data.");
     }
   };
@@ -234,7 +236,7 @@ const NewTrack = () => {
                   <Save /> Save
                 </>
               }
-              handlePress={() => router.push("/sign-in")}
+              handlePress={saveToAppwrite}
               isLoading={false}
               containerStyles={"flex-grow"}
               textStyles={"text-white flex items-center"}
