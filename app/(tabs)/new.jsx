@@ -29,6 +29,7 @@ const NewTrack = () => {
   const cameraRef = useRef(null);
   const [facing, setFacing] = useState("back");
   const [loading, setLoading] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
 
   useEffect(() => {
     // Request camera permission
@@ -152,9 +153,13 @@ const NewTrack = () => {
   };
 
   const saveToAppwrite = async () => {
+    setSaveLoading(true);
     try {
       // Save the photo and calorie data to Appwrite
-      const result = await savePicture(calorieData, photo);
+      const result = await savePicture(
+        calorieData,
+        (await convertImageUriToBase64(photo)) || photo
+      );
       if (!result) {
         return Alert.alert("Error", "Save failed. Please try again.");
       }
@@ -162,6 +167,8 @@ const NewTrack = () => {
     } catch (error) {
       console.error("Error saving data:", error);
       Alert.alert("Error", "There was an issue saving the data.");
+    } finally {
+      setSaveLoading(false);
     }
   };
 
@@ -237,7 +244,7 @@ const NewTrack = () => {
                 </>
               }
               handlePress={saveToAppwrite}
-              isLoading={false}
+              isLoading={saveLoading}
               containerStyles={"flex-grow"}
               textStyles={"text-white flex items-center"}
             />
