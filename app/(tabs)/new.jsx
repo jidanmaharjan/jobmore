@@ -133,11 +133,12 @@ const NewTrack = () => {
   const capturePhoto = async () => {
     if (cameraRef.current) {
       const photoData = await cameraRef.current.takePictureAsync({
-        quality: 1,
+        quality: 0.3,
         base64: false,
         imageType: "jpg",
+        shutterSound: false,
       });
-      setPhoto(photoData.uri);
+      setPhoto(photoData);
       console.log("Photo Data:", photoData);
 
       processImage(photoData.uri);
@@ -156,10 +157,7 @@ const NewTrack = () => {
     setSaveLoading(true);
     try {
       // Save the photo and calorie data to Appwrite
-      const result = await savePicture(
-        calorieData,
-        (await convertImageUriToBase64(photo)) || photo
-      );
+      const result = await savePicture(calorieData, photo);
       if (!result) {
         return Alert.alert("Error", "Save failed. Please try again.");
       }
@@ -220,7 +218,7 @@ const NewTrack = () => {
         </CameraView>
       ) : (
         <View className="items-center justify-center w-full px-4 gap-8 bg-primary h-full">
-          <Image className="aspect-[9/16] w-60" source={{ uri: photo }} />
+          <Image className="aspect-[9/16] w-60" source={{ uri: photo?.uri }} />
           {loading ? (
             <ActivityIndicator size={"large"} color={"orange"} />
           ) : (
